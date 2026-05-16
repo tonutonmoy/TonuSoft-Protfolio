@@ -17,7 +17,7 @@ const app = Fastify({
 });
 
 app.register(cors, {
-  origin: ['http://localhost:3000', 'http://localhost:3001'],
+  origin: ['http://tonusoft.com', 'http://www.tonusoft.com'],
   credentials: true,
 });
 
