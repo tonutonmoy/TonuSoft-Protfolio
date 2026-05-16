@@ -17,7 +17,7 @@ const app = Fastify({
 });
 
 app.register(cors, {
-  origin: ['http://tonusoft.com', 'http://www.tonusoft.com'],
+  origin: ['https://tonusoft.com', 'https://www.tonusoft.com'],
   credentials: true,
 });
 
