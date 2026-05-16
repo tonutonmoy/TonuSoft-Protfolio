@@ -1,0 +1,12 @@
+# Dependencies
+**/node_modules/
+
+
+# Build outputs
+**/.next/
+**/dist/
+
+# Keep env files tracked in this repository
+!.env
+!**/.env
+.vercel
