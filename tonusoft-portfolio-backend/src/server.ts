@@ -2,7 +2,7 @@ import app from './app';
 import config from './config';
 import seedSuperAdmin from './app/DB';
 
-const port = Number(config.port) || 3008;
+const port = Number(process.env.PORT) || Number(config.port) || 3008;
 
 async function main() {
   try {
