@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'http://localhost:4002/api/v1';
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'https://api.tonusoft.com/api/v1';
 
 interface ApiResponse<T> {
   success: boolean;
