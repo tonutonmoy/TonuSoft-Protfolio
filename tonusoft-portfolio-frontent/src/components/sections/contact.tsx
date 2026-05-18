@@ -27,7 +27,7 @@ export function Contact() {
             className="md:col-span-2 space-y-4"
           >
             {[
-              { icon: Mail, label: "Email", value: "tonutonmoy12@gmail.com" },
+              { icon: Mail, label: "Email", value: "www.tonutonmoy12@gmail.com" },
               { icon: Phone, label: "Phone", value: "+880 1732-159683" },
               { icon: MessageCircle, label: "WhatsApp", value: "+880 1732-159683" },
               { icon: MapPin, label: "Location", value: "Satkhira, Khulna, Bangladesh · Munshipara" },

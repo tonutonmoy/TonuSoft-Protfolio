@@ -44,9 +44,9 @@ export function SiteFooter() {
         <div>
           <h4 className="font-display text-sm font-semibold">Contact</h4>
           <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-            <li>hello@tonusoft.com</li>
-            <li>+1 (555) 010-2025</li>
-            <li>Remote · Worldwide</li>
+            <li>www.tonutonmoy12@gmail.com</li>
+            <li>+880 1732-159683</li>
+            <li>Satkhira, Khulna, Bangladesh</li>
           </ul>
         </div>
       </div>
