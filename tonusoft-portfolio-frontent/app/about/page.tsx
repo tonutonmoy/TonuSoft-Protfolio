@@ -1,9 +1,12 @@
 import type { Metadata } from 'next';
+import { createMetadata } from '../../src/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: 'About TonuSoft',
   description: 'Learn about TonuSoft, a software solutions company building custom CRM, POS, SaaS, mobile and AI-powered platforms.',
-};
+  path: '/about',
+  keywords: ['about TonuSoft', 'software solutions company', 'Bangladesh software company'],
+});
 
 export default function AboutPage() {
   return (

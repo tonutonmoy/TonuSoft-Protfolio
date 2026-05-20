@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { fetchFromApi } from '../../../src/lib/serverApi';
+import { createMetadata } from '../../../src/lib/seo';
 
 type BlogPost = {
   id: string;
@@ -20,10 +21,14 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     return { title: 'Blog Post Not Found' };
   }
 
-  return {
+  return createMetadata({
     title: `${post.title} | TonuSoft Blog`,
     description: post.excerpt || 'Read the latest story from TonuSoft.',
-  };
+    path: `/blog/${post.id}`,
+    image: post.coverUrl,
+    type: 'article',
+    keywords: [post.title, post.author ?? 'TonuSoft Team', 'TonuSoft blog'],
+  });
 }
 
 export default async function BlogDetailPage({ params }: { params: Promise<{ id: string }> }) {

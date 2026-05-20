@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { BarChart3, Briefcase, Layers, LayoutDashboard, Sparkles, TrendingUp, Users, Zap, Menu, X, FileText, BriefcaseIcon, Package, Code, Star, Home } from "lucide-react";
 import { useAuth } from "@/components/auth-provider";
@@ -49,6 +49,11 @@ export default function DashboardPage() {
   const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1024);
   const [categories, setCategories] = useState<Category[]>([]);
 
+  const loadCategories = useCallback(async () => {
+    const categoriesList = await api.get<Category[]>("/content/categories");
+    setCategories(categoriesList.data);
+  }, []);
+
   useEffect(() => {
     if (!user) return;
 
@@ -75,15 +80,14 @@ export default function DashboardPage() {
         const productsList = await api.get<any[]>("/content/products");
         setLatestProducts(productsList.data.slice(0, 4).map((item) => item.name || item.title || item.label || "Untitled"));
 
-        const categoriesList = await api.get<Category[]>("/content/categories");
-        setCategories(categoriesList.data);
+        await loadCategories();
       } catch (error: any) {
         setFetchError(error?.message ?? "Failed to load dashboard data.");
       }
     }
 
     loadDashboard();
-  }, [user]);
+  }, [user, loadCategories]);
 
   // Handle window resize for responsive sidebar
   useEffect(() => {
@@ -310,6 +314,7 @@ export default function DashboardPage() {
                   title="Categories"
                   displayKey="name"
                   subKey="description"
+                  onSaved={loadCategories}
                   fields={[
                     { name: "name", label: "Category Name", type: "text", placeholder: "e.g., SaaS, Tools, Services" },
                     { name: "description", label: "Description", type: "textarea" },

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { fetchFromApi } from '../../../src/lib/serverApi';
+import { createMetadata } from '../../../src/lib/seo';
 
 type PortfolioItem = {
   id: string;
@@ -19,10 +20,13 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     return { title: 'Project Not Found' };
   }
 
-  return {
+  return createMetadata({
     title: `${project.title} | TonuSoft Projects`,
     description: project.description || 'Project details from TonuSoft.',
-  };
+    path: `/projects/${project.id}`,
+    image: project.imageUrl,
+    keywords: [project.title, project.category ?? 'project', 'TonuSoft project'],
+  });
 }
 
 export default async function ProjectDetailPage({ params }: { params: Promise<{ id: string }> }) {

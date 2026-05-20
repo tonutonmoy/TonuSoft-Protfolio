@@ -71,11 +71,22 @@ export function ProductsClient({ products, categories }: ProductsClientProps) {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
 
   const categoryOptions = useMemo(() => {
-    if (categories && categories.length > 0) {
-      return categories;
-    }
-    const uniqueCategories = Array.from(new Set(products.map((product) => product.category).filter(Boolean))) as string[];
-    return uniqueCategories.map((category) => ({ id: category, name: category }));
+    const options = new Map<string, Category>();
+
+    categories?.forEach((category) => {
+      if (category.id && category.name) {
+        options.set(category.id, category);
+      }
+    });
+
+    products.forEach((product) => {
+      const category = product.category?.trim();
+      if (category && !options.has(category)) {
+        options.set(category, { id: category, name: category });
+      }
+    });
+
+    return Array.from(options.values());
   }, [categories, products]);
 
   const categoryLabel = (product: ProductItem) =>
@@ -95,7 +106,11 @@ export function ProductsClient({ products, categories }: ProductsClientProps) {
       const matchesCategory =
         selectedCategory === "ALL" ||
         p.category === selectedCategory ||
-        categoryOptions.some((category) => category.id === selectedCategory && category.name === p.category);
+        categoryOptions.some(
+          (category) =>
+            category.id === selectedCategory &&
+            category.name.toLowerCase() === (p.category ?? "").toLowerCase(),
+        );
 
       return matchesSearch && matchesCategory;
     });

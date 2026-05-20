@@ -1,10 +1,13 @@
 import { Skills } from "../../src/components/sections/skills";
 import { fetchFromApi } from "../../src/lib/serverApi";
+import { createMetadata } from "../../src/lib/seo";
 
-export const metadata = {
+export const metadata = createMetadata({
   title: "TonuSoft Technology",
   description: "View the technologies that shape TonuSoft's software and product development.",
-};
+  path: "/technology",
+  keywords: ["technology stack", "software technologies", "TonuSoft technology"],
+});
 
 export default async function TechnologyPage() {
   const skillsData = await fetchFromApi<any[]>('/content/skills');

@@ -1,10 +1,13 @@
 import { ProductsClient } from "../../src/components/sections/products-client";
 import { fetchFromApi } from "../../src/lib/serverApi";
+import { createMetadata } from "../../src/lib/seo";
 
-export const metadata = {
+export const metadata = createMetadata({
   title: "TonuSoft Products",
   description: "Explore TonuSoft flagship product suite for business operations and digital experience.",
-};
+  path: "/products",
+  keywords: ["TonuSoft products", "business software products", "SaaS products"],
+});
 
 export default async function ProductsPage() {
   const productsData = await fetchFromApi<any[]>("/content/products");

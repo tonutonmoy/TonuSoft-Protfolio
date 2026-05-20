@@ -1,11 +1,14 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { fetchFromApi } from '../../src/lib/serverApi';
+import { createMetadata } from '../../src/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: 'Blog - TonuSoft',
   description: 'Read our latest blog posts on software development, technology trends, and industry insights.',
-};
+  path: '/blog',
+  keywords: ['software development blog', 'technology insights', 'TonuSoft blog'],
+});
 
 type BlogPost = {
   id: string;

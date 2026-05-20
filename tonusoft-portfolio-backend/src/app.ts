@@ -24,6 +24,18 @@ app.register(cors, {
 // 👇 Register authenticate plugin BEFORE routes
 app.register(authenticate); // 👈 ADD THIS LINE
 app.register(multipart);
+
+app.addHook('onSend', async (request, reply, payload) => {
+  if (request.raw.url?.startsWith('/api/')) {
+    reply.header('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    reply.header('Pragma', 'no-cache');
+    reply.header('Expires', '0');
+    reply.header('Surrogate-Control', 'no-store');
+  }
+
+  return payload;
+});
+
 app.get('/', async (request, reply) => {
   reply.send({ message: 'The server is running. . .' });
 });

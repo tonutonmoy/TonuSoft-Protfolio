@@ -18,9 +18,10 @@ type Props = {
   fields: Field[];
   displayKey: string;
   subKey?: string;
+  onSaved?: () => void;
 };
 
-export function CrudManager({ table, title, fields, displayKey, subKey }: Props) {
+export function CrudManager({ table, title, fields, displayKey, subKey, onSaved }: Props) {
   const qc = useQueryClient();
   const [editing, setEditing] = useState<any | null>(null);
   const [open, setOpen] = useState(false);
@@ -44,6 +45,7 @@ export function CrudManager({ table, title, fields, displayKey, subKey }: Props)
     },
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: [table] });
+      onSaved?.();
       setOpen(false);
       setEditing(null);
       toast.success("Saved");

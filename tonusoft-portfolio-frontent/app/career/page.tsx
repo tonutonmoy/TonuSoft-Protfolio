@@ -1,11 +1,14 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { fetchFromApi } from '../../src/lib/serverApi';
+import { createMetadata } from '../../src/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: 'Careers - Join TonuSoft',
   description: 'Explore career opportunities at TonuSoft. Join our talented team and grow with us.',
-};
+  path: '/career',
+  keywords: ['TonuSoft careers', 'software jobs', 'developer jobs'],
+});
 
 type Career = {
   id: string;

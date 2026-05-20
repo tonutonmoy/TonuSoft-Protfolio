@@ -1,9 +1,12 @@
 import type { Metadata } from 'next';
+import { createMetadata } from '../../src/lib/seo';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = createMetadata({
   title: 'Contact - TonuSoft',
   description: 'Get in touch with TonuSoft. We would love to hear from you.',
-};
+  path: '/contact',
+  keywords: ['contact TonuSoft', 'software project consultation', 'hire software developer'],
+});
 
 export default function ContactPage() {
   return (

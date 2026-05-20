@@ -1,10 +1,13 @@
 import { Portfolio } from "../../src/components/sections/portfolio";
 import { fetchFromApi } from "../../src/lib/serverApi";
+import { createMetadata } from "../../src/lib/seo";
 
-export const metadata = {
+export const metadata = createMetadata({
   title: "TonuSoft Projects",
   description: "See TonuSoft project work, real-world case studies and featured portfolio items.",
-};
+  path: "/projects",
+  keywords: ["TonuSoft projects", "software portfolio", "case studies"],
+});
 
 export default async function ProjectsPage() {
   const [projectsData, categoriesData] = await Promise.all([

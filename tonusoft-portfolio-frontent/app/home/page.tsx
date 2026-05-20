@@ -9,6 +9,7 @@ import { Testimonials } from "../../src/components/sections/testimonials";
 import { Pricing } from "../../src/components/sections/pricing";
 import { Contact } from "../../src/components/sections/contact";
 import { fetchFromApi } from "../../src/lib/serverApi";
+import { absoluteUrl } from "../../src/lib/seo";
 
 export const metadata = {
   title: "TonuSoft — Future-Ready Software Solutions",
@@ -16,7 +17,7 @@ export const metadata = {
   openGraph: {
     title: "TonuSoft — Future-Ready Software Solutions",
     description: "We design and engineer scalable digital products end to end.",
-    url: "http://localhost:3000/home",
+    url: absoluteUrl("/home"),
   },
 };
 
@@ -25,8 +26,8 @@ const structuredData = {
   "@type": "Organization",
   "name": "TonuSoft",
   "description": "Modern software studio building CRM, POS, SaaS, mobile, desktop and AI-powered platforms for ambitious teams.",
-  "url": "http://localhost:3000",
-  "logo": "http://localhost:3000/logo.png",
+  "url": absoluteUrl("/"),
+  "logo": absoluteUrl("/favicon.ico"),
   "sameAs": [
     "https://github.com/tonusoft",
     "https://linkedin.com/company/tonusoft"

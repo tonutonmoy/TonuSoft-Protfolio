@@ -31,12 +31,22 @@ export function Portfolio({ items, categories }: PortfolioProps) {
   const [selectedCategory, setSelectedCategory] = useState("ALL");
 
   const categoryOptions = useMemo(() => {
-    if (categories && categories.length > 0) {
-      return categories;
-    }
+    const options = new Map<string, Category>();
 
-    const uniqueCategories = Array.from(new Set(projects.map((project) => project.category).filter(Boolean))) as string[];
-    return uniqueCategories.map((category) => ({ id: category, name: category }));
+    categories?.forEach((category) => {
+      if (category.id && category.name) {
+        options.set(category.id, category);
+      }
+    });
+
+    projects.forEach((project) => {
+      const category = project.category?.trim();
+      if (category && !options.has(category)) {
+        options.set(category, { id: category, name: category });
+      }
+    });
+
+    return Array.from(options.values());
   }, [categories, projects]);
 
   const filteredProjects = useMemo(() => {
@@ -45,11 +55,15 @@ export function Portfolio({ items, categories }: PortfolioProps) {
         selectedCategory === "ALL" ||
         project.category === selectedCategory ||
         project.category?.toLowerCase() === selectedCategory.toLowerCase() ||
-        categoryOptions.find((category) => category.id === selectedCategory && category.name === project.category);
+        categoryOptions.find(
+          (category) =>
+            category.id === selectedCategory &&
+            category.name.toLowerCase() === (project.category ?? "").toLowerCase(),
+        );
 
       const searchLower = searchTerm.trim().toLowerCase();
       const categoryLabel =
-        categories?.find((category) => category.id === project.category)?.name ?? project.category ?? "";
+        categoryOptions.find((category) => category.id === project.category)?.name ?? project.category ?? "";
       const matchesSearch =
         searchLower === "" ||
         project.title.toLowerCase().includes(searchLower) ||
@@ -58,10 +72,10 @@ export function Portfolio({ items, categories }: PortfolioProps) {
 
       return matchesCategory && matchesSearch;
     });
-  }, [projects, searchTerm, selectedCategory, categories, categoryOptions]);
+  }, [projects, searchTerm, selectedCategory, categoryOptions]);
 
   const categoryLabel = (project: PortfolioItem) =>
-    categories?.find((category) => category.id === project.category)?.name ?? project.category ?? "Uncategorized";
+    categoryOptions.find((category) => category.id === project.category)?.name ?? project.category ?? "Uncategorized";
 
   return (
     <section className="relative py-24">
@@ -73,7 +87,7 @@ export function Portfolio({ items, categories }: PortfolioProps) {
               Selected <span className="text-gradient">case studies</span>
             </h2>
           </div>
-          {categories && categories.length > 0 && (
+          {categoryOptions.length > 0 && (
             <div className="grid gap-3 sm:grid-cols-[1.4fr,1fr]">
               <label className="block">
                 <span className="text-sm font-medium text-muted-foreground">Search projects</span>

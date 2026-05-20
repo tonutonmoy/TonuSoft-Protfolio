@@ -35,6 +35,7 @@ async function request<T>(path: string, options: RequestInit = {}) {
   const url = path.startsWith('http') ? path : `${API_BASE_URL}${path}`;
   const response = await fetch(url, {
     credentials: 'include',
+    cache: 'no-store',
     ...options,
     headers,
   });

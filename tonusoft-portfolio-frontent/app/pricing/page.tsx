@@ -1,10 +1,13 @@
 import { Pricing } from "../../src/components/sections/pricing";
 import { fetchFromApi } from "../../src/lib/serverApi";
+import { createMetadata } from "../../src/lib/seo";
 
-export const metadata = {
+export const metadata = createMetadata({
   title: "TonuSoft Pricing",
   description: "Browse our transparent pricing plans for custom software, SaaS and product development.",
-};
+  path: "/pricing",
+  keywords: ["software pricing", "SaaS development pricing", "TonuSoft pricing"],
+});
 
 export default async function PricingPage() {
   const pricingData = await fetchFromApi<any[]>('/content/pricing');

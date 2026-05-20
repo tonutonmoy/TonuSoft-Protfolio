@@ -3,7 +3,10 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL ?? 'https://api.tonuso
 export async function fetchFromApi<T>(path: string): Promise<T | null> {
   try {
     const response = await fetch(`${API_BASE_URL}${path}`, {
-      cache: 'force-cache',
+      cache: 'no-store',
+      headers: {
+        'cache-control': 'no-cache',
+      },
     });
 
     if (!response.ok) {

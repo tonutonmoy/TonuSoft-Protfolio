@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { fetchFromApi } from '../../../src/lib/serverApi';
+import { createMetadata } from '../../../src/lib/seo';
 
 type Product = {
   id: string;
@@ -26,10 +27,13 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
     return { title: 'Product Not Found' };
   }
 
-  return {
+  return createMetadata({
     title: `${product.name} | TonuSoft Product`,
     description: product.tagline || product.description || 'Product details at TonuSoft.',
-  };
+    path: `/products/${product.id}`,
+    image: product.imageUrl,
+    keywords: [product.name, product.productType ?? 'product', 'TonuSoft product'],
+  });
 }
 
 export default async function ProductDetailPage({ params }: { params: Promise<{ id: string }> }) {
