@@ -13,17 +13,21 @@ export const metadata: Metadata = {
   ...createMetadata(),
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" data-scroll-behavior="smooth">
+      <head>
+        <meta
+          name="facebook-domain-verification"
+          content="7j2h86vkfcjmbkewvy2f1rmkmbcwoh"
+        />
+      </head>
+
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalyticsId}`}
         strategy="afterInteractive"
       />
+
       <Script id="google-analytics" strategy="afterInteractive">
         {`
           window.dataLayer = window.dataLayer || [];
@@ -32,10 +36,9 @@ export default function RootLayout({
           gtag('config', '${googleAnalyticsId}');
         `}
       </Script>
+
       <body className={inter.className} suppressHydrationWarning>
-        <Providers>
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
